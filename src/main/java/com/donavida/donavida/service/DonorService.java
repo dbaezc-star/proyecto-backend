@@ -35,4 +35,9 @@ public class DonorService {
     public void delete(Long id) {
         donorRepository.deleteById(id);
     }
+
+    public Donor getByEmail(String email) {
+        return donorRepository.findByUserEmail(email)
+                .orElseThrow(() -> new RuntimeException("Donante no encontrado"));
+    }
 }

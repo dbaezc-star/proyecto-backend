@@ -36,4 +36,8 @@ public class DonorController {
         donorService.delete(id);
         return ResponseEntity.noContent().build();
     }
+    @GetMapping("/by-email/{email}")
+    public ResponseEntity<Donor> getByEmail(@PathVariable String email) {
+        return ResponseEntity.ok(donorService.getByEmail(email));
+    }
 }
