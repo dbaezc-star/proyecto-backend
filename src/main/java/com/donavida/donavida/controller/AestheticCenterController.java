@@ -36,4 +36,9 @@ public class AestheticCenterController {
         aestheticCenterService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/by-email/{email}")
+    public ResponseEntity<AestheticCenter> getByEmail(@PathVariable String email) {
+        return ResponseEntity.ok(aestheticCenterService.getByEmail(email));
+    }
 }
