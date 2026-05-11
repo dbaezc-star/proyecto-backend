@@ -34,4 +34,8 @@ public class AestheticCenterService {
     public void delete(Long id) {
         aestheticCenterRepository.deleteById(id);
     }
+    public AestheticCenter getByEmail(String email) {
+        return aestheticCenterRepository.findByUserEmail(email)
+                .orElseThrow(() -> new RuntimeException("Centro estético no encontrado"));
+    }
 }

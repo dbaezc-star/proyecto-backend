@@ -39,5 +39,8 @@ public class DonationController {
                 .orElseThrow(() -> new RuntimeException("Donor not found"));
         return ResponseEntity.ok(donationRepository.findByDonorId(donorId));
     }
-
+    @GetMapping("/aesthetic-center/{centerId}")
+    public ResponseEntity<List<Donation>> getDonationsByAestheticCenter(@PathVariable Long centerId) {
+        return ResponseEntity.ok(donationRepository.findByAestheticCenterId(centerId));
+    }
 }

@@ -3,9 +3,11 @@ package com.donavida.donavida.service;
 import com.donavida.donavida.dto.AuthResponse;
 import com.donavida.donavida.dto.LoginRequest;
 import com.donavida.donavida.dto.RegisterRequest;
+import com.donavida.donavida.entity.AestheticCenter;
 import com.donavida.donavida.entity.Donor;
 import com.donavida.donavida.entity.Role;
 import com.donavida.donavida.entity.User;
+import com.donavida.donavida.repository.AestheticCenterRepository;
 import com.donavida.donavida.repository.DonorRepository;
 import com.donavida.donavida.repository.UserRepository;
 import com.donavida.donavida.security.JwtUtil;
@@ -21,6 +23,7 @@ public class AuthService {
 
     private final UserRepository userRepository;
     private final DonorRepository donorRepository;
+    private final AestheticCenterRepository aestheticCenterRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
     private final AuthenticationManager authenticationManager;
@@ -47,6 +50,16 @@ public class AuthService {
                     .city(request.getCity())
                     .build();
             donorRepository.save(donor);
+        } else if (request.getRole() == Role.AESTHETIC_CENTER) {
+            AestheticCenter center = AestheticCenter.builder()
+                    .user(user)
+                    .name(request.getName())
+                    .phone(request.getPhone())
+                    .city(request.getCity())
+                    .address(request.getAddress())
+                    .verified(false)
+                    .build();
+            aestheticCenterRepository.save(center);
         }
 
         String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
